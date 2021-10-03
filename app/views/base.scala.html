@@ -1,0 +1,24 @@
+@(title: String)(request: Http.Request)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="@routes.Assets.versioned("images/favicon.png")">
+        <title>Warden - @title</title>
+        <link href="https://cdn.jsdelivr.net/npm/halfmoon@@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    </head>
+    <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars dark-mode">
+        <div class="page-wrapper with-navbar@if(request.session().get("username").isPresent){ with-sidebar}" data-sidebar-type="overlayed-sm-and-down">
+            <div class="sticky-alerts"></div>
+            <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+            @parts.navbar(request)
+            @if(request.session().get("username").isPresent) {
+                @parts.sidebar()
+            }
+            @content
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/halfmoon@@1.1.1/js/halfmoon.min.js"></script>
+    </body>
+</html>

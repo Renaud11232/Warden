@@ -1,0 +1,66 @@
+@import forms.Login
+@(implicit request: Http.Request, form: Form[Login], messages: play.i18n.Messages)
+@base("Login")(request) {
+    <div class="content-wrapper d-flex align-items-center">
+        <div class="w-400 m-auto">
+            <div class="card p-0">
+                <div class="px-card py-10 border-bottom">
+                    <h2 class="card-title font-size-18 m-0">
+                        Login
+                    </h2>
+                </div>
+                <div class="content">
+                    @helper.form(action = controllers.auth.routes.LoginController.login()) {
+                        @helper.CSRF.formField
+                        @if(form.hasGlobalErrors) {
+                            <div class="invalid-feedback">
+                                <ul>
+                                    @for(error <- form.globalErrors) {
+                                        <li>@error.format(messages)</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        @if(!form("username").errors.isEmpty) {
+                            <div class="invalid-feedback">
+                                <ul>
+                                @for(error <- form("username").errors) {
+                                    <li>@error.format(messages)</li>
+                                }
+                                </ul>
+                            </div>
+                        }
+                        <div class="form-group input-group@if(!form("username").errors.isEmpty || form.hasGlobalErrors){ is-invalid}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input name="username" type="text" class="form-control" placeholder="Your username" value="@form("username").value">
+                        </div>
+                        @if(!form("password").errors.isEmpty) {
+                            <div class="invalid-feedback">
+                                <ul>
+                                @for(error <- form("password").errors) {
+                                    <li>@error.format(messages)</li>
+                                }
+                                </ul>
+                            </div>
+                        }
+                        <div class="form-group input-group@if(!form("password").errors.isEmpty || form.hasGlobalErrors){ is-invalid}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input name="password" type="password" class="form-control" placeholder="Your password">
+                        </div>
+                        <div class="text-right">
+                            <input class="btn btn-primary" type="submit" value="Log in">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
