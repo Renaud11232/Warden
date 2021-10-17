@@ -6,6 +6,10 @@ import models.User;
 @ImplementedBy(UserRepositoryImpl.class)
 public interface UserRepository {
 
-    User getByUserName(String username);
+    User getByUsername(String username);
+
+    User getByUuid(String uuid);
+
+    boolean hasUser();
 
 }

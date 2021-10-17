@@ -1,5 +1,7 @@
 GET     /               controllers.DashboardController.show(request: Request)
 
+GET     /setup          controllers.FirstSetupController.show()
+
 GET     /login          controllers.auth.LoginController.show(request: Request)
 POST    /login          controllers.auth.LoginController.login(request: Request)
 POST    /logout         controllers.auth.LoginController.logout()

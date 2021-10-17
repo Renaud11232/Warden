@@ -11,6 +11,9 @@ public class User {
     @Column(name = "USER_ID")
     private Long id;
 
+    @Column(name = "UUID", nullable = false, unique = true)
+    private String uuid;
+
     @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
 
@@ -39,5 +42,13 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

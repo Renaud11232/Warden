@@ -41,7 +41,7 @@ public class LoginController extends Controller {
         Form<Login> boundLoginForm = loginForm.bindFromRequest(request);
         if(!boundLoginForm.hasErrors() && !boundLoginForm.hasGlobalErrors()) {
             Login login = boundLoginForm.get();
-            User user = userRepository.getByUserName(login.getUsername());
+            User user = userRepository.getByUsername(login.getUsername());
             if(user != null && ((user.getPassword() == null && login.getPassword().isEmpty()) || (user.getPassword() != null && passwordEncoder.matches(login.getPassword(), user.getPassword())))) {
                 return redirect(routes.DashboardController.show()).withNewSession().addingToSession(request, "username", user.getUsername());
             } else {

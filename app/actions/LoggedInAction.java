@@ -18,9 +18,9 @@ public class LoggedInAction extends Action<LoggedIn> {
     @Override
     public CompletionStage<Result> call(Http.Request req) {
         if(req.session().get("username").isEmpty()) {
-            return CompletableFuture.completedFuture(redirect(routes.LoginController.show()));
-        } else if(repository.getByUserName(req.session().get("username").get()) == null) {
-            return CompletableFuture.completedFuture(redirect(routes.LoginController.show()).withNewSession());
+            return CompletableFuture.supplyAsync(() -> redirect(routes.LoginController.show()));
+        } else if(repository.getByUsername(req.session().get("username").get()) == null) {
+            return CompletableFuture.supplyAsync(() -> redirect(routes.LoginController.show()).withNewSession());
         }
         return delegate.call(req);
     }
