@@ -1,10 +1,10 @@
-package actions;
+package be.renaud11232.warden.actions;
 
-import controllers.auth.routes;
+import be.renaud11232.warden.controllers.auth.routes;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
-import repositories.UserRepository;
+import be.renaud11232.warden.repositories.UserRepository;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
@@ -17,9 +17,9 @@ public class LoggedInAction extends Action<LoggedIn> {
 
     @Override
     public CompletionStage<Result> call(Http.Request req) {
-        if(req.session().get("username").isEmpty()) {
+        if(req.session().get("user").isEmpty()) {
             return CompletableFuture.supplyAsync(() -> redirect(routes.LoginController.show()));
-        } else if(repository.getByUsername(req.session().get("username").get()) == null) {
+        } else if(repository.getByUuid(req.session().get("user").get()) == null) {
             return CompletableFuture.supplyAsync(() -> redirect(routes.LoginController.show()).withNewSession());
         }
         return delegate.call(req);

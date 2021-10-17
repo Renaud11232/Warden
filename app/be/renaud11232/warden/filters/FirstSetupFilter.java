@@ -1,11 +1,11 @@
-package filters;
+package be.renaud11232.warden.filters;
 
 import akka.stream.Materializer;
 import play.mvc.Filter;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
-import repositories.UserRepository;
+import be.renaud11232.warden.repositories.UserRepository;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
@@ -24,10 +24,14 @@ public class FirstSetupFilter extends Filter {
 
     @Override
     public CompletionStage<Result> apply(Function<Http.RequestHeader, CompletionStage<Result>> next, Http.RequestHeader rh) {
-        if(userRepository.hasUser() || rh.path().equals("/setup")) {
+        if(rh.path().startsWith("/assets/")) {
             return next.apply(rh);
-        } else {
+        } else if(userRepository.hasUser()) {
+            return CompletableFuture.supplyAsync(Results::notFound);
+        } else if (!rh.path().equals("/setup")) {
             return CompletableFuture.supplyAsync(() -> Results.redirect("/setup"));
+        } else {
+            return next.apply(rh);
         }
     }
 }

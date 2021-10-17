@@ -1,4 +1,4 @@
-package models;
+package be.renaud11232.warden.models;
 
 import javax.persistence.*;
 

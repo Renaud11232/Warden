@@ -1,4 +1,4 @@
-package repositories;
+package be.renaud11232.warden.repositories;
 
 import play.db.jpa.JPAApi;
 

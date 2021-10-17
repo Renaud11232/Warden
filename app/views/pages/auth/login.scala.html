@@ -1,6 +1,6 @@
-@import forms.Login
+@import be.renaud11232.warden.forms.Login
 @(implicit request: Http.Request, form: Form[Login], messages: play.i18n.Messages)
-@base("Login")(request) {
+@base("Login")(request)(null) {
     <div class="content-wrapper d-flex align-items-center">
         <div class="w-400 m-auto">
             <div class="card p-0">
@@ -10,7 +10,7 @@
                     </h2>
                 </div>
                 <div class="content">
-                    @helper.form(action = controllers.auth.routes.LoginController.login()) {
+                    @helper.form(action = be.renaud11232.warden.controllers.auth.routes.LoginController.login()) {
                         @helper.CSRF.formField
                         @if(form.hasGlobalErrors) {
                             <div class="invalid-feedback">

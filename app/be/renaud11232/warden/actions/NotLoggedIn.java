@@ -1,4 +1,4 @@
-package actions;
+package be.renaud11232.warden.actions;
 
 import play.mvc.With;
 

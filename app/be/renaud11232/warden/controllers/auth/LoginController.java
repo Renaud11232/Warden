@@ -1,10 +1,9 @@
-package controllers.auth;
+package be.renaud11232.warden.controllers.auth;
 
-import actions.LoggedIn;
-import actions.NotLoggedIn;
-import controllers.routes;
-import forms.Login;
-import models.User;
+import be.renaud11232.warden.actions.LoggedIn;
+import be.renaud11232.warden.actions.NotLoggedIn;
+import be.renaud11232.warden.forms.Login;
+import be.renaud11232.warden.models.User;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import play.data.Form;
 import play.data.FormFactory;
@@ -12,7 +11,7 @@ import play.i18n.MessagesApi;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import repositories.UserRepository;
+import be.renaud11232.warden.repositories.UserRepository;
 
 import javax.inject.Inject;
 
@@ -43,7 +42,7 @@ public class LoginController extends Controller {
             Login login = boundLoginForm.get();
             User user = userRepository.getByUsername(login.getUsername());
             if(user != null && ((user.getPassword() == null && login.getPassword().isEmpty()) || (user.getPassword() != null && passwordEncoder.matches(login.getPassword(), user.getPassword())))) {
-                return redirect(routes.DashboardController.show()).withNewSession().addingToSession(request, "username", user.getUsername());
+                return redirect(be.renaud11232.warden.controllers.routes.DashboardController.show()).withNewSession().addingToSession(request, "user", user.getUuid());
             } else {
                 return unauthorized(views.html.pages.auth.login.render(request, boundLoginForm.fill(login).withGlobalError("The username and password don't match"), messagesApi.preferred(request)));
             }
@@ -53,7 +52,7 @@ public class LoginController extends Controller {
 
     @LoggedIn
     public Result logout() {
-        return redirect(routes.DashboardController.show()).withNewSession();
+        return redirect(be.renaud11232.warden.controllers.routes.DashboardController.show()).withNewSession();
     }
 
 }

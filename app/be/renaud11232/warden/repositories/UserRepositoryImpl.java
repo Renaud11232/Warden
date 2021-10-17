@@ -1,6 +1,6 @@
-package repositories;
+package be.renaud11232.warden.repositories;
 
-import models.User;
+import be.renaud11232.warden.models.User;
 
 public class UserRepositoryImpl extends Repository implements UserRepository {
 

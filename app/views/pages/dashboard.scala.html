@@ -1,5 +1,6 @@
-@(request: Http.Request)
-@base("Dashboard")(request){
+@import be.renaud11232.warden.models.User
+@(request: Http.Request)(user: User)
+@base("Dashboard")(request)(user){
     <div class="content-wrapper">
         This is the dashboard
     </div>

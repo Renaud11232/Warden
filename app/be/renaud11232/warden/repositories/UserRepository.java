@@ -1,7 +1,7 @@
-package repositories;
+package be.renaud11232.warden.repositories;
 
 import com.google.inject.ImplementedBy;
-import models.User;
+import be.renaud11232.warden.models.User;
 
 @ImplementedBy(UserRepositoryImpl.class)
 public interface UserRepository {

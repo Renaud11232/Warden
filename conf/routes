@@ -1,10 +1,10 @@
-GET     /               controllers.DashboardController.show(request: Request)
+GET     /              be.renaud11232.warden.controllers.DashboardController.show(request: Request)
 
-GET     /setup          controllers.FirstSetupController.show()
+GET     /setup         be.renaud11232.warden.controllers.FirstSetupController.show(request: Request)
 
-GET     /login          controllers.auth.LoginController.show(request: Request)
-POST    /login          controllers.auth.LoginController.login(request: Request)
-POST    /logout         controllers.auth.LoginController.logout()
+GET     /login         be.renaud11232.warden.controllers.auth.LoginController.show(request: Request)
+POST    /login         be.renaud11232.warden.controllers.auth.LoginController.login(request: Request)
+POST    /logout        be.renaud11232.warden.controllers.auth.LoginController.logout()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file   controllers.Assets.versioned(path="/public", file: Asset)
