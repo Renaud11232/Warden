@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     private Long id;
 
@@ -17,8 +17,12 @@ public class User {
     @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ROLE", nullable = false)
+    private Role role;
 
     public String getUsername() {
         return username;
@@ -50,5 +54,13 @@ public class User {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

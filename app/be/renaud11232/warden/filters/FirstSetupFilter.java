@@ -26,12 +26,14 @@ public class FirstSetupFilter extends Filter {
     public CompletionStage<Result> apply(Function<Http.RequestHeader, CompletionStage<Result>> next, Http.RequestHeader rh) {
         if(rh.path().startsWith("/assets/")) {
             return next.apply(rh);
-        } else if(userRepository.hasUser()) {
-            return CompletableFuture.supplyAsync(Results::notFound);
-        } else if (!rh.path().equals("/setup")) {
-            return CompletableFuture.supplyAsync(() -> Results.redirect("/setup"));
-        } else {
-            return next.apply(rh);
         }
+        boolean hasUser = userRepository.hasUser();
+        if(hasUser && rh.path().equals("/setup")) {
+            return CompletableFuture.supplyAsync(Results::notFound);
+        }
+        if (!hasUser && !rh.path().equals("/setup")) {
+            return CompletableFuture.supplyAsync(() -> Results.redirect("/setup"));
+        }
+        return next.apply(rh);
     }
 }

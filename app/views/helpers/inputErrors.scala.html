@@ -1,0 +1,15 @@
+@(implicit field: play.data.Form.Field, messages: play.i18n.Messages)
+
+@if(field.hasErrors) {
+    <div class="invalid-feedback">
+    @if(field.errors.size == 1) {
+        @field.errors.head.format(messages)
+    } else {
+        <ul>
+        @for(error <- field.errors) {
+            <li>@error.format(messages)</li>
+        }
+        </ul>
+    }
+    </div>
+}

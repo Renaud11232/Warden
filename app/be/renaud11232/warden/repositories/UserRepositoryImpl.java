@@ -2,6 +2,9 @@ package be.renaud11232.warden.repositories;
 
 import be.renaud11232.warden.models.User;
 
+import javax.persistence.EntityManager;
+import java.util.function.Consumer;
+
 public class UserRepositoryImpl extends Repository implements UserRepository {
 
     @Override
@@ -17,5 +20,10 @@ public class UserRepositoryImpl extends Repository implements UserRepository {
     @Override
     public boolean hasUser() {
         return jpa().withTransaction(em -> !em.createQuery("select u from User u").setMaxResults(1).getResultList().isEmpty());
+    }
+
+    @Override
+    public void create(User user) {
+        jpa().withTransaction((Consumer<EntityManager>) em -> em.persist(user));
     }
 }

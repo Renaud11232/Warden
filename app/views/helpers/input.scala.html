@@ -1,0 +1,14 @@
+@import views.html.helpers.inputErrors
+@import scala.collection.Map
+@(implicit field: play.data.Form.Field, args: Map[String, Any], messages: play.i18n.Messages)
+
+<div class="form-group@if(field.hasErrors){ is-invalid}">
+    <label for="@field.id" class="required">@args("label")</label>
+    @inputErrors(field, messages)
+    <input value="@field.value" id="@field.id" @if(args.contains("type")) {type="@args("type")"} class="form-control" name="@field.name">
+    @if(args.contains("hint")) {
+        <div class="form-text">
+            @args("hint")
+        </div>
+    }
+</div>

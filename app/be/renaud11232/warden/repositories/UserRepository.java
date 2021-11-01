@@ -12,4 +12,6 @@ public interface UserRepository {
 
     boolean hasUser();
 
+    void create(User user);
+
 }

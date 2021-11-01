@@ -1,10 +1,6 @@
 @import be.renaud11232.warden.forms.Login
-@import views.html.helper.FieldConstructor
-@import views.html.elements.loginFormElement
-
+@import scala.collection.Map
 @(implicit request: Http.Request, form: Form[Login], messages: play.i18n.Messages)
-
-@implicitField = @{ FieldConstructor(loginFormElement.f) }
 
 @base("Login")(request)(null) {
     <div class="content-wrapper d-flex align-items-center">
@@ -18,21 +14,9 @@
                 <div class="content">
                     @helper.form(action = be.renaud11232.warden.controllers.auth.routes.LoginController.login()) {
                         @helper.CSRF.formField
-                        @if(form.hasGlobalErrors) {
-                            <div class="invalid-feedback">
-                                @if(form.errors.size == 1) {
-                                    @form.errors.head.format(messages)
-                                } else {
-                                    <ul>
-                                        @for(error <- form.globalErrors) {
-                                            <li>@error.format(messages)</li>
-                                        }
-                                    </ul>
-                                }
-                            </div>
-                        }
-                        @helper.inputText(form("username"), Symbol("_label") -> "Your username", Symbol("icon") -> "fa-user")
-                        @helper.inputPassword(form("password"), Symbol("_label") -> "Your password", Symbol("icon") -> "fa-lock", Symbol("type") -> "password")
+                        @helpers.globalErrors(form, messages)
+                        @helpers.loginFormElement(form("username"), Map("icon" -> "fa-user", "label" -> "Your username"), messages)
+                        @helpers.loginFormElement(form("password"), Map("icon" -> "fa-lock", "label" -> "Your password", "type" -> "password"), messages)
                         <div class="text-right">
                             <input class="btn btn-primary" type="submit" value="Log in">
                         </div>

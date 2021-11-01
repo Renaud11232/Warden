@@ -1,6 +1,7 @@
 GET     /              be.renaud11232.warden.controllers.DashboardController.show(request: Request)
 
 GET     /setup         be.renaud11232.warden.controllers.FirstSetupController.show(request: Request)
+POST    /setup         be.renaud11232.warden.controllers.FirstSetupController.createUser(request: Request)
 
 GET     /login         be.renaud11232.warden.controllers.auth.LoginController.show(request: Request)
 POST    /login         be.renaud11232.warden.controllers.auth.LoginController.login(request: Request)

@@ -18,7 +18,9 @@
             @if(user != null) {
                 @parts.sidebar()
             }
-            @content
+            <div class="content-wrapper">
+                @content
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/halfmoon@@1.1.1/js/halfmoon.min.js"></script>
     </body>
