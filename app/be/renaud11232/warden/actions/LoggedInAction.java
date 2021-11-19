@@ -1,6 +1,5 @@
 package be.renaud11232.warden.actions;
 
-import be.renaud11232.warden.controllers.auth.routes;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -17,11 +16,11 @@ public class LoggedInAction extends Action<LoggedIn> {
 
     @Override
     public CompletionStage<Result> call(Http.Request req) {
-        if(req.session().get("user").isEmpty()) {
+        /*if(req.session().get("user").isEmpty()) {
             return CompletableFuture.supplyAsync(() -> redirect(routes.LoginController.show()));
         } else if(repository.getByUuid(req.session().get("user").get()) == null) {
             return CompletableFuture.supplyAsync(() -> redirect(routes.LoginController.show()).withNewSession());
-        }
+        }*/
         return delegate.call(req);
     }
 

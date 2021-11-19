@@ -12,9 +12,9 @@ public class NotLoggedInAction extends Action<NotLoggedIn> {
 
     @Override
     public CompletionStage<Result> call(Http.Request req) {
-        if(req.session().get("user").isPresent()) {
+        /*if(req.session().get("user").isPresent()) {
             return CompletableFuture.supplyAsync(() -> redirect(routes.DashboardController.show()));
-        }
+        }*/
         return delegate.call(req);
     }
 

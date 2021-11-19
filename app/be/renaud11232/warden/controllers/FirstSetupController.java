@@ -1,6 +1,5 @@
 package be.renaud11232.warden.controllers;
 
-import be.renaud11232.warden.controllers.auth.routes;
 import be.renaud11232.warden.forms.Setup;
 import be.renaud11232.warden.models.Role;
 import be.renaud11232.warden.models.User;
@@ -35,13 +34,15 @@ public class FirstSetupController extends Controller {
     }
 
     public Result show(Http.Request req) {
-        return ok(views.html.pages.setup.render(req, setupForm, messagesApi.preferred(req)));
+        //return ok(views.html.pages.setup.render(req, setupForm, messagesApi.preferred(req)));
+        return ok();
     }
 
     public Result createUser(Http.Request request) {
         Form<Setup> boundSetupForm = setupForm.bindFromRequest(request).withDirectFieldAccess(true);
         if(boundSetupForm.hasErrors() || boundSetupForm.hasGlobalErrors()) {
-            return badRequest(views.html.pages.setup.render(request, boundSetupForm, messagesApi.preferred(request)));
+            //return badRequest(views.html.pages.setup.render(request, boundSetupForm, messagesApi.preferred(request)));
+            return ok();
         } else {
             Setup setup = boundSetupForm.get();
             String hashedPassword = passwordEncoder.encode(setup.getPassword());
@@ -52,7 +53,8 @@ public class FirstSetupController extends Controller {
             user.setUsername(setup.getUsername());
             user.setRole(Role.SUPERADMIN);
             userRepository.create(user);
-            return redirect(routes.LoginController.show());
+            //return redirect(routes.LoginController.show());
+            return ok();
         }
     }
 

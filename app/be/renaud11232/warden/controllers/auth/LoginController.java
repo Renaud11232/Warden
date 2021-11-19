@@ -31,28 +31,25 @@ public class LoginController extends Controller {
     }
 
     @NotLoggedIn
-    public Result show(Http.Request request) {
-        return ok(views.html.pages.auth.login.render(request, loginForm, messagesApi.preferred(request)));
-    }
-
-    @NotLoggedIn
     public Result login(Http.Request request) {
         Form<Login> boundLoginForm = loginForm.bindFromRequest(request);
         if(!boundLoginForm.hasErrors() && !boundLoginForm.hasGlobalErrors()) {
             Login login = boundLoginForm.get();
             User user = userRepository.getByUsername(login.getUsername());
             if(user != null && ((user.getPassword() == null && login.getPassword().isEmpty()) || (user.getPassword() != null && passwordEncoder.matches(login.getPassword(), user.getPassword())))) {
-                return redirect(be.renaud11232.warden.controllers.routes.DashboardController.show()).withNewSession().addingToSession(request, "user", user.getUuid());
+                //return redirect(be.renaud11232.warden.controllers.routes.DashboardController.show()).withNewSession().addingToSession(request, "user", user.getUuid());
             } else {
-                return unauthorized(views.html.pages.auth.login.render(request, boundLoginForm.fill(login).withGlobalError("The username and password don't match"), messagesApi.preferred(request)));
+                //return unauthorized(views.html.pages.auth.login.render(request, boundLoginForm.fill(login).withGlobalError("The username and password don't match"), messagesApi.preferred(request)));
             }
         }
-        return unauthorized(views.html.pages.auth.login.render(request, boundLoginForm, messagesApi.preferred(request)));
+        return ok();
+        //return unauthorized(views.html.pages.auth.login.render(request, boundLoginForm, messagesApi.preferred(request)));
     }
 
     @LoggedIn
     public Result logout() {
-        return redirect(be.renaud11232.warden.controllers.routes.DashboardController.show()).withNewSession();
+        //return redirect(be.renaud11232.warden.controllers.routes.DashboardController.show()).withNewSession();
+        return ok();
     }
 
 }
