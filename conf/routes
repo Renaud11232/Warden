@@ -1,5 +1,5 @@
-GET     /               be.renaud11232.warden.controllers.FrontendController.index
+GET     /                       be.renaud11232.warden.controllers.FrontendController.index
 
-GET     /api/v1/        be.renaud11232.warden.controllers.DashboardController.show
+#GET     /api/v1/setup           be.renaud11232.warden.controllers.SetupController.getState
 
-GET     /*resource      be.renaud11232.warden.controllers.FrontendController.assetOrDefault(resource)
+GET     /*resource              be.renaud11232.warden.controllers.FrontendController.assetOrDefault(resource)

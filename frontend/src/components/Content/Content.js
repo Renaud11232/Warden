@@ -1,14 +1,17 @@
 import {Routes, Route} from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 import Login from "../Login/Login";
-import Setup from "../Setup/Setup";
+import Private from "../Utils/Private";
 
 export default function Content() {
     return (
         <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/setup" element={<Setup />} />
+            <Route index element={
+                <Private>
+                    <Dashboard/>
+                </Private>
+            }/>
+            <Route path="/login" element={<Login/>}/>
         </Routes>
     );
 }

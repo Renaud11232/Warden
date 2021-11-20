@@ -1,4 +1,4 @@
-package be.renaud11232.warden.controllers.auth;
+package be.renaud11232.warden.controllers;
 
 import be.renaud11232.warden.actions.LoggedIn;
 import be.renaud11232.warden.actions.NotLoggedIn;
