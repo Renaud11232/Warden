@@ -1,9 +1,9 @@
 import {Navigate} from "react-router-dom";
-import {useToken} from "../../hooks/token";
+import {useContext} from "react";
+import TokenContext from "../Auth/TokenContext";
 
 export default function Private({children}) {
-    const {token} = useToken();
-
+    const [token] = useContext(TokenContext);
 
     if(token) {
         return children;

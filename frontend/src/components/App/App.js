@@ -1,24 +1,16 @@
-import NavBar from "../NavBar/NavBar";
-import SideBar from "../SideBar/SideBar";
-import Content from "../Content/Content";
-import {useEffect, useState} from "react";
-const halfmoon = require("halfmoon");
+import TokenContext from "../Auth/TokenContext";
+import MainPage from "./MainPage";
+import useToken from "../../hooks/token";
+import TokenRenewal from "../Auth/TokenRenwal";
 
 export default function App() {
-    const [user] = useState();
 
-    useEffect(() => {
-    }, []);
+    const [token, setToken] = useToken();
 
     return (
-        <div className={"page-wrapper with-navbar" + (user ? " with-sidebar" : "")} data-sidebar-type="overlayed-sm-and-down">
-            <div className="sticky-alerts"/>
-            <div className="sidebar-overlay" onClick={() => {halfmoon.toggleSidebar()}}/>
-            <NavBar />
-            {user && <SideBar />}
-            <div className="content-wrapper">
-                <Content />
-            </div>
-        </div>
+        <TokenContext.Provider value={[token, setToken]} >
+            <MainPage />
+            <TokenRenewal />
+        </TokenContext.Provider>
     );
 }

@@ -1,36 +1,31 @@
 import Input from "./Input";
 import * as fas from '@fortawesome/free-solid-svg-icons';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Navigate} from "react-router-dom";
-import {useToken} from "../../hooks/token";
-
-async function doLogin(credentials) {
-    return fetch("/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(credentials)
-    }).then(data => data.json())
-}
+import TokenContext from "./TokenContext";
+import Api from "../../api/api";
 
 export default function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
-    const {token, setToken} = useToken();
+    const [token, setToken] = useContext(TokenContext);
 
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
         e.preventDefault();
-        const response = await doLogin({
+        Api.Auth.Login({
             username,
             password
-        });
-        setToken(response.token);
+        }).then(response => {
+            setToken(response.data.token)
+        }).catch(() => {
+            setToken(null)
+        })
     }
 
     if(token) {
         return <Navigate to="/" />
     }
+
     return (
         <div className="content-wrapper d-flex align-items-center">
             <div className="w-400 m-auto">

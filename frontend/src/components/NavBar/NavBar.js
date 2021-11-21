@@ -1,16 +1,22 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as fas from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useContext} from "react";
+import TokenContext from "../Auth/TokenContext";
 
 const halfmoon = require("halfmoon");
 
 export default function NavBar() {
-    const [user] = useState();
+
+    const [token, setToken] = useContext(TokenContext);
+
+    const logout = () => {
+        setToken(null);
+    }
 
     return (
         <nav className="navbar">
-            {user &&
+            {token &&
             <div className="navbar-content">
                 <button className="btn" type="button" onClick={() => {
                     halfmoon.toggleSidebar()
@@ -27,7 +33,7 @@ export default function NavBar() {
                 <span className="badge text-monospace">v0.0.1-dev</span>
             </span>
             <ul className="navbar-nav ml-auto">
-                {user &&
+                {token &&
                 <li className="nav-item dropdown with-arrow">
                     <a className="nav-link" data-toggle="dropdown" id="user-dropdown-toggle" href="#">
                         Le username
@@ -35,10 +41,7 @@ export default function NavBar() {
                     </a>
                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown-toggle">
                         <a href="#" className="dropdown-item">Change password</a>
-                        {/* onClick="document.getElementById('logout-form').submit()"*/}
-                        <a href="#" className="dropdown-item">Logout</a>
-                        <form id="logout-form" method="POST" action="azeazeazejjakhbzzfioij">
-                        </form>
+                        <a href="#" className="dropdown-item" onClick={logout}>Logout</a>
                     </div>
                 </li>
                 }
