@@ -9,7 +9,7 @@ export default function Input(props) {
                 </span>
             </div>
             <label className="sr-only" htmlFor={props.id}>{props.label}</label>
-            <input id={props.id} name={props.name} type={props.type} className="form-control" placeholder={props.label} required="required" />
+            <input id={props.id} name={props.name} type={props.type} className="form-control" placeholder={props.label} required="required" onChange={props.onChange} />
         </div>
     );
 }

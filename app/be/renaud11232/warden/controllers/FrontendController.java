@@ -17,7 +17,8 @@ public class FrontendController extends Controller {
     }
 
     public Action<AnyContent> assetOrDefault(String resource) {
-        if(resource.contains(".")) {
+        String[] resourcePath = resource.split("/");
+        if(resourcePath[resourcePath.length - 1].contains(".")) {
             return assets.at(resource);
         } else {
             return index();

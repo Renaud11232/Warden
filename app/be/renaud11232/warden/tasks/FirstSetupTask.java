@@ -17,9 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class FirstSetupTask {
 
     private final UserRepository userRepository;
-
     private final Argon2PasswordEncoder argon2PasswordEncoder;
-
     private final Logger logger = LoggerFactory.getLogger("setup");
 
     @Inject
@@ -37,25 +35,25 @@ public class FirstSetupTask {
     private void createUserIfNeeded() {
         if (!userRepository.hasUser()) {
             String username = "admin";
-            String password = "changme";
+            String password = "changeme";
             User defaultUser = new User();
             defaultUser.setRole(Role.SUPERADMIN);
             defaultUser.setUsername(username);
             defaultUser.setPassword(argon2PasswordEncoder.encode(password));
             defaultUser.setUuid(UUID.randomUUID().toString());
             userRepository.create(defaultUser);
-            logger.info("=============================================================================================================");
+            logger.info("============================================================================================================");
             logger.info(" \\ \\        / /          | |");
             logger.info("  \\ \\  /\\  / /_ _ _ __ __| | ___ _ __");
             logger.info("   \\ \\/  \\/ / _` | '__/ _` |/ _ \\ '_ \\");
             logger.info("    \\  /\\  / (_| | | | (_| |  __/ | | |");
             logger.info("     \\/  \\/ \\__,_|_|  \\__,_|\\___|_| |_|");
-            logger.info("=============================================================================================================");
+            logger.info("============================================================================================================");
             logger.info("Welcome, the default user has been created. You can now login to the webUI using the following credentials :");
             logger.info("Username : " + username);
             logger.info("Password : " + password);
             logger.info("Once connected, don't forget to change these default credentials");
-            logger.info("=============================================================================================================");
+            logger.info("============================================================================================================");
         }
     }
 

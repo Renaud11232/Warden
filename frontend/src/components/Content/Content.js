@@ -1,6 +1,6 @@
 import {Routes, Route} from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
-import Login from "../Login/Login";
+import Login from "../Auth/Login";
 import Private from "../Utils/Private";
 
 export default function Content() {

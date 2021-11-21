@@ -1,6 +1,13 @@
 import {Navigate} from "react-router-dom";
+import {useToken} from "../../hooks/token";
 
 export default function Private({children}) {
-    const dindon = null;
-    return dindon ? children : <Navigate to="/login" />;
+    const {token} = useToken();
+
+
+    if(token) {
+        return children;
+    }
+
+    return <Navigate to="/login" />;
 }
