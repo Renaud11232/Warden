@@ -1,6 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as fas from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
+import UserMenu from "./UserMenu";
 import {useContext} from "react";
 import TokenContext from "../Auth/TokenContext";
 
@@ -8,11 +9,7 @@ const halfmoon = require("halfmoon");
 
 export default function NavBar() {
 
-    const [token, setToken] = useContext(TokenContext);
-
-    const logout = () => {
-        setToken(null);
-    }
+    const [token] = useContext(TokenContext);
 
     return (
         <nav className="navbar">
@@ -33,18 +30,7 @@ export default function NavBar() {
                 <span className="badge text-monospace">v0.0.1-dev</span>
             </span>
             <ul className="navbar-nav ml-auto">
-                {token &&
-                <li className="nav-item dropdown with-arrow">
-                    <a className="nav-link" data-toggle="dropdown" id="user-dropdown-toggle" href="#">
-                        Le username
-                        <FontAwesomeIcon icon={fas.faAngleDown} className="ml-5"/>
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="user-dropdown-toggle">
-                        <a href="#" className="dropdown-item">Change password</a>
-                        <a href="#" className="dropdown-item" onClick={logout}>Logout</a>
-                    </div>
-                </li>
-                }
+                <UserMenu />
             </ul>
         </nav>
     );

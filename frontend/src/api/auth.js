@@ -2,7 +2,11 @@ import axios from "axios";
 
 const AuthApi = {
     WhoAmI: function(token) {
-
+        return axios.get("/api/v1/auth/whoami", {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
     },
     Login: async function(credentials) {
         return axios.post("/api/v1/auth/login", credentials);

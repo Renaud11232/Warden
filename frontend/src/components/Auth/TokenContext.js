@@ -1,4 +1,4 @@
 import {createContext} from "react";
 
-const TokenContext = createContext();
+const TokenContext = createContext(null);
 export default TokenContext;
