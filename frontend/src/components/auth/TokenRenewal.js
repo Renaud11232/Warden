@@ -1,5 +1,5 @@
 import {useContext, useEffect} from "react";
-import TokenContext from "./TokenContext";
+import TokenContext from "../context/TokenContext";
 import Api from "../../api/api";
 import ReactInterval from "react-interval";
 
@@ -11,7 +11,11 @@ export default function TokenRenewal() {
         if(token) {
             Api.Auth.Renew(token)
                 .then(r => setToken(r.data.token))
-                .catch(() => setToken(null))
+                .catch(e => {
+                    if(e.response && e.response.status === 403) {
+                        setToken(null)
+                    }
+                })
         }
     }
 

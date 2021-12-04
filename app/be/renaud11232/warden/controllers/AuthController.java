@@ -1,11 +1,14 @@
 package be.renaud11232.warden.controllers;
 
 import be.renaud11232.warden.actions.Authed;
+import be.renaud11232.warden.dto.Token;
+import be.renaud11232.warden.forms.Login;
 import be.renaud11232.warden.jwt.JWTManager;
 import be.renaud11232.warden.models.User;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import be.renaud11232.warden.request.RequestAttribute;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import play.data.Form;
+import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -25,32 +28,37 @@ public class AuthController extends Controller {
     @Inject
     private JWTManager jwtManager;
 
-    public Result getToken(Http.Request request) {
-        JsonNode data = request.body().asJson();
-        if(data != null && data.hasNonNull("username") && data.hasNonNull("password")) {
-            User user = userRepository.getByUsername(data.get("username").asText());
-            if(user != null && passwordEncoder.matches(data.get("password").asText(), user.getPassword())) {
-                return ok(getJsonTokenFor(user));
-            }
+    private final Form<Login> loginForm;
+
+    @Inject
+    public AuthController(FormFactory formFactory) {
+        this.loginForm = formFactory.form(Login.class);
+    }
+
+    public Result login(Http.Request request) {
+        Form<Login> boundLoginForm = loginForm.bindFromRequest(request);
+        if(boundLoginForm.hasErrors()) {
+            return badRequest(boundLoginForm.errorsAsJson());
         }
-        return unauthorized();
+        Login login = boundLoginForm.get();
+        User user = userRepository.getByUsername(login.getUsername());
+        if(user != null && passwordEncoder.matches(login.getPassword(), user.getPassword())) {
+            Token token = new Token(jwtManager.generate(user));
+            return ok(Json.toJson(token));
+        }
+        return unauthorized(boundLoginForm.withError("errors", "The username and password don't match.").errorsAsJson());
     }
 
     @Authed
     public Result whoAmI(Http.Request request) {
-        return ok(Json.toJson(jwtManager.decode(request)));
+        return ok(Json.toJson(request.attrs().get(RequestAttribute.USER)));
     }
 
     @Authed
     public Result renewToken(Http.Request request) {
-        User user = jwtManager.decode(request);
-        return ok(getJsonTokenFor(user));
-    }
-
-    private ObjectNode getJsonTokenFor(User user) {
-        ObjectNode result = Json.newObject();
-        result.put("token", jwtManager.generate(user));
-        return result;
+        User user = request.attrs().get(RequestAttribute.USER);
+        Token token = new Token(jwtManager.generate(user));
+        return ok(Json.toJson(token));
     }
 
 }

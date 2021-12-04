@@ -2,6 +2,7 @@ package be.renaud11232.warden.actions;
 
 import be.renaud11232.warden.jwt.JWTManager;
 import be.renaud11232.warden.models.User;
+import be.renaud11232.warden.request.RequestAttribute;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -19,10 +20,10 @@ public class AuthedAction extends Action<Authed> {
     @Override
     public CompletionStage<Result> call(Http.Request req) {
         User authedUser = jwtManager.decode(req);
-        if(authedUser == null) {
+        if(authedUser == null || authedUser.getRole().compareTo(configuration.role()) < 0) {
             return CompletableFuture.supplyAsync(Results::forbidden);
         }
-        return delegate.call(req);
+        return delegate.call(req.addAttr(RequestAttribute.USER, authedUser));
     }
 
 }

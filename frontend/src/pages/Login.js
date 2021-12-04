@@ -1,9 +1,10 @@
-import Input from "./Input";
+import Input from "../components/auth/Input";
 import * as fas from '@fortawesome/free-solid-svg-icons';
 import {useContext, useState} from "react";
 import {Navigate} from "react-router-dom";
-import TokenContext from "./TokenContext";
-import Api from "../../api/api";
+import TokenContext from "../components/context/TokenContext";
+import Api from "../api/api";
+import {Helmet} from "react-helmet-async";
 
 export default function Login() {
     const [username, setUsername] = useState();
@@ -28,6 +29,9 @@ export default function Login() {
 
     return (
         <div className="content-wrapper d-flex align-items-center">
+            <Helmet>
+                <title>Login - Warden</title>
+            </Helmet>
             <div className="w-400 m-auto">
                 <div className="card p-0">
                     <div className="px-card py-10 border-bottom">

@@ -1,9 +1,9 @@
 import halfmoon from "halfmoon";
-import NavBar from "../NavBar/NavBar";
-import SideBar from "../SideBar/SideBar";
-import Content from "../Content/Content";
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
+import MainRouter from "../routing/MainRouter";
 import {useContext} from "react";
-import TokenContext from "../Auth/TokenContext";
+import TokenContext from "../context/TokenContext";
 
 export default function MainPage() {
 
@@ -16,7 +16,7 @@ export default function MainPage() {
             <NavBar />
             <SideBar />
             <div className="content-wrapper">
-                <Content />
+                <MainRouter />
             </div>
         </div>
     );

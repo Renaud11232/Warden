@@ -3,7 +3,7 @@ import * as fas from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 import UserMenu from "./UserMenu";
 import {useContext} from "react";
-import TokenContext from "../Auth/TokenContext";
+import TokenContext from "../context/TokenContext";
 
 const halfmoon = require("halfmoon");
 

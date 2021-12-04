@@ -1,8 +1,8 @@
 package be.renaud11232.warden.models;
 
 public enum Role {
-    SUPERADMIN,
-    ADMIN,
+    MONITOR,
     OPERATOR,
-    MONITOR
+    ADMIN,
+    SUPERADMIN
 }

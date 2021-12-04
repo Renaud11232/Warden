@@ -1,6 +1,6 @@
 GET     /                       be.renaud11232.warden.controllers.FrontendController.index
 
-POST    /api/v1/auth/login      be.renaud11232.warden.controllers.AuthController.getToken(request: Request)
+POST    /api/v1/auth/login      be.renaud11232.warden.controllers.AuthController.login(request: Request)
 GET     /api/v1/auth/whoami     be.renaud11232.warden.controllers.AuthController.whoAmI(request: Request)
 GET     /api/v1/auth/renew      be.renaud11232.warden.controllers.AuthController.renewToken(request: Request)
 
