@@ -46,7 +46,7 @@ public class AuthController extends Controller {
             Token token = new Token(jwtManager.generate(user));
             return ok(Json.toJson(token));
         }
-        return unauthorized(boundLoginForm.withError("errors", "The username and password don't match.").errorsAsJson());
+        return unauthorized(boundLoginForm.withGlobalError("The username and password don't match.").errorsAsJson());
     }
 
     @Authed

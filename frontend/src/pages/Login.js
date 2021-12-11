@@ -5,21 +5,29 @@ import {Navigate} from "react-router-dom";
 import TokenContext from "../components/context/TokenContext";
 import Api from "../api/api";
 import {Helmet} from "react-helmet-async";
+import FormErrors from "../components/common/FormErrors";
 
 export default function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [token, setToken] = useContext(TokenContext);
+    const [errors, setErrors] = useState({});
+    const [disabled, setDisabled] = useState(false)
 
     const handleSubmit = e => {
         e.preventDefault();
+        setDisabled(true);
+        setErrors({})
         Api.Auth.Login({
             username,
             password
         }).then(response => {
             setToken(response.data.token)
-        }).catch(() => {
+        }).catch(e => {
             setToken(null)
+            setErrors(e.response.data)
+        }).finally(() => {
+            setDisabled(false);
         })
     }
 
@@ -41,10 +49,11 @@ export default function Login() {
                     </div>
                     <div className="content">
                         <form onSubmit={handleSubmit}>
-                            <Input label="Your username" id="username" type="text" name="username" icon={fas.faUser} onChange={e => setUsername(e.target.value)} />
-                            <Input label="Your password" id="password" type="password" name="password" icon={fas.faLock} onChange={e => setPassword(e.target.value)} />
+                            <FormErrors errors={errors[""]} />
+                            <Input label="Your username" id="username" type="text" name="username" icon={fas.faUser} onChange={e => setUsername(e.target.value)} disabled={disabled} />
+                            <Input label="Your password" id="password" type="password" name="password" icon={fas.faLock} onChange={e => setPassword(e.target.value)} disabled={disabled} />
                             <div className="text-right">
-                                <input className="btn btn-primary" type="submit" value="Log in" />
+                                <input className="btn btn-primary" type="submit" value="Log in" disabled={disabled} />
                             </div>
                         </form>
                     </div>
