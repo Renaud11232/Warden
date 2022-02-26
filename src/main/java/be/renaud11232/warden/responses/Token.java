@@ -1,4 +1,4 @@
-package be.renaud11232.warden.reponses;
+package be.renaud11232.warden.responses;
 
 public class Token {
 

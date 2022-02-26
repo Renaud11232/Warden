@@ -1,7 +1,7 @@
 package be.renaud11232.warden.controllers;
 
 import be.renaud11232.warden.models.User;
-import be.renaud11232.warden.reponses.Token;
+import be.renaud11232.warden.responses.Token;
 import be.renaud11232.warden.repositories.UserRepository;
 import be.renaud11232.warden.requests.LoginRequest;
 import be.renaud11232.warden.security.jwt.JwtUtils;
