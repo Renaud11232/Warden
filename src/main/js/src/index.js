@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import "halfmoon/css/halfmoon-variables.min.css";
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {HelmetProvider} from "react-helmet-async";
 
 const halfmoon = require("halfmoon");

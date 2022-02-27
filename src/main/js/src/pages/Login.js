@@ -49,7 +49,7 @@ export default function Login() {
                     </div>
                     <div className="content">
                         <form onSubmit={handleSubmit}>
-                            <FormErrors errors={errors[""]} />
+                            <FormErrors errors={errors["globalErrors"]} />
                             <Input label="Your username" id="username" type="text" name="username" icon={fas.faUser} onChange={e => setUsername(e.target.value)} disabled={disabled} />
                             <Input label="Your password" id="password" type="password" name="password" icon={fas.faLock} onChange={e => setPassword(e.target.value)} disabled={disabled} />
                             <div className="text-right">
