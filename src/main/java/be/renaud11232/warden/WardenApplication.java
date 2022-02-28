@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WardenSpringApplication {
+public class WardenApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WardenSpringApplication.class, args);
+        SpringApplication.run(WardenApplication.class, args);
     }
 
 }

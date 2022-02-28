@@ -1,6 +1,6 @@
 package be.renaud11232.warden.security.jwt;
 
-import be.renaud11232.warden.security.services.UserDetailsImpl;
+import be.renaud11232.warden.models.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -19,7 +19,7 @@ public class JwtUtils {
     private String jwtSecret;
 
     public String generateJwtToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        User userPrincipal = (User) authentication.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
         return JWT.create()
                 .withIssuer("Warden")

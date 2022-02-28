@@ -1,12 +1,11 @@
 package be.renaud11232.warden.controllers;
 
 import be.renaud11232.warden.models.User;
-import be.renaud11232.warden.responses.Errors;
-import be.renaud11232.warden.responses.Token;
 import be.renaud11232.warden.repositories.UserRepository;
 import be.renaud11232.warden.requests.LoginRequest;
+import be.renaud11232.warden.responses.Errors;
+import be.renaud11232.warden.responses.Token;
 import be.renaud11232.warden.security.jwt.JwtUtils;
-import be.renaud11232.warden.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,8 +55,7 @@ public class AuthController extends Controller {
 
     @GetMapping("/whoami")
     public ResponseEntity<?> whoAmI() {
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByUuid(userDetails.getUuid()).get();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return ResponseEntity.ok(user);
     }
 
